@@ -1,0 +1,43 @@
+show_progress(1.000000, 2);
+ui_print("InspireMod revamped by Mustaavalkosta");
+ui_print("");
+ui_print("-- Based on Inspiremod v0.5");
+ui_print("           by Jayson Vaughn");
+ui_print("");
+ui_print("");
+ui_print("* Audio fix and Dual mic activation");
+ui_print("* Inspire 4G Branding");
+ui_print("");
+sleep(2);
+
+show_progress(0.900000, 1);
+ui_print("Mounting /system...");
+run_program("/sbin/busybox", "mount", "/system");
+
+show_progress(0.700000, 1);
+ui_print("Cleaning up old files...");
+delete_recursive("/system/etc/soundimage");
+delete("/system/etc/CodecDSPID.txt", "/system/etc/init.d/30dualmic");
+
+show_progress(0.500000, 1);
+ui_print("Extracting Ispire 4G files...");
+package_extract_dir("system", "/system");
+
+show_progress(0.400000, 1);
+ui_print("Setting permissions...");
+set_perm_recursive(0, 0, 0755, 0644, "/system/etc/soundimage");
+set_perm(0, 0, 0644, "/system/etc/CodecDSPID.txt");
+set_perm(0, 0, 0755, "/system/etc/init.d/30dualmic");
+
+show_progress(0.300000, 1);
+ui_print("Changing branding to Inspire 4G...");
+package_extract_dir("branding", "/tmp");
+set_perm(0, 0, 0777, "/tmp/brand_inspire.sh");
+run_program("/tmp/brand_inspire.sh");
+
+show_progress(0.200000, 1);
+ui_print("Unmounting /system...");
+unmount("/system");
+
+show_progress(0.100000, 1);
+ui_print("Done!");

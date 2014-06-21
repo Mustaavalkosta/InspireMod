@@ -1,0 +1,4 @@
+#!/system/bin/sh
+#
+# turn on dual mic
+/system/bin/snd3254 -dspmode 0

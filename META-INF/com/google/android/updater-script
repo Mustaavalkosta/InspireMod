@@ -25,15 +25,15 @@ package_extract_dir("system", "/system");
 
 show_progress(0.400000, 1);
 ui_print("Setting permissions...");
-set_metadata("/system/addon.d/60-inspiremod.sh", "uid", 0, "gid", 0, "mode", 0755, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
-set_metadata_recursive("/system/etc/soundimage", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
-set_metadata("/system/etc/CodecDSPID.txt", "uid", 0, "gid", 0, "mode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
-set_metadata("/system/etc/init.d/30dualmic", "uid", 0, "gid", 2000, "mode", 0755, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_perm(0, 0, 0755, "/system/addon.d/60-inspiremod.sh");
+set_perm_recursive(0, 0, 0755, 0644, "/system/etc/soundimage");
+set_perm(0, 0, 0644, "/system/etc/CodecDSPID.txt");
+set_perm(0, 0, 0755, "/system/etc/init.d/30dualmic");
 
 show_progress(0.300000, 1);
 ui_print("Changing branding to Inspire 4G...");
 package_extract_dir("branding", "/tmp");
-set_metadata("/tmp/brand_inspire.sh", "uid", 0, "gid", 0, "mode", 0755);
+set_perm(0, 0, 0777, "/tmp/brand_inspire.sh");
 run_program("/tmp/brand_inspire.sh");
 
 show_progress(0.200000, 1);
